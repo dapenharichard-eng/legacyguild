@@ -10,12 +10,12 @@ import { Send, CheckCircle, User, Hash, Gamepad2, MessageSquare } from "lucide-r
 import { toast } from "sonner";
 
 const requirements = [
-  { label: "Nível mínimo", value: "50+" },
-  { label: "Rank mínimo", value: "Platina" },
-  { label: "K/D mínimo", value: "2.0+" },
-  { label: "Idade mínima", value: "15 anos" },
-  { label: "Discord", value: "Obrigatório" },
-  { label: "Atividade", value: "3x/semana" },
+  { label: "Nível mínimo", value: "+40" },
+  { label: "Ser ativo", value: "Essencial" },
+  { label: "Idade mínima", value: "+13 anos" },
+  { label: "Call limpa", value: "Obrigatório" },
+  { label: "Noção de jogo", value: "Necessária" },
+  { label: "WhatsApp", value: "Obrigatório" },
 ];
 
 export default function RecruitSection() {
@@ -194,43 +194,36 @@ export default function RecruitSection() {
                   </div>
                 </div>
 
-                {/* Rank + KD */}
+                {/* Level + Age */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                  <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                    Patente Atual *
-                  </label>
+                    <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
+                      Seu Level *
+                    </label>
                     <div className="relative">
                       <Gamepad2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
-                      <select
+                      <input
+                        type="number"
                         name="rank"
                         value={form.rank}
                         onChange={handleChange}
-                        className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200 appearance-none"
-                      >
-                        <option value="" className="bg-[oklch(0.08_0.02_240)]">Selecione</option>
-                        <option value="bronze" className="bg-[oklch(0.08_0.02_240)]">Bronze</option>
-                        <option value="prata" className="bg-[oklch(0.08_0.02_240)]">Prata</option>
-                        <option value="ouro" className="bg-[oklch(0.08_0.02_240)]">Ouro</option>
-                        <option value="platina" className="bg-[oklch(0.08_0.02_240)]">Platina</option>
-                        <option value="diamante" className="bg-[oklch(0.08_0.02_240)]">Diamante</option>
-                        <option value="mestre" className="bg-[oklch(0.08_0.02_240)]">Mestre</option>
-                        <option value="elite" className="bg-[oklch(0.08_0.02_240)]">Elite</option>
-                      </select>
+                        placeholder="Ex: 45"
+                        min="40"
+                        className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200"
+                      />
                     </div>
                   </div>
                   <div>
                     <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                      K/D Ratio
+                      Sua Idade *
                     </label>
                     <input
                       type="number"
                       name="kd"
                       value={form.kd}
                       onChange={handleChange}
-                      placeholder="Ex: 3.5"
-                      step="0.1"
-                      min="0"
+                      placeholder="Ex: 18"
+                      min="13"
                       className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 px-3 rounded-sm transition-colors duration-200"
                     />
                   </div>
