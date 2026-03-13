@@ -11,10 +11,10 @@ const members = [
   {
     name: "Bravuu7",
     role: "Líder Fundador",
-    rank: "Heroico",
+    rank: "Elite",
     kd: "4.8",
     wins: "312",
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face",
+    avatar: "https://d2xsxph8kpxj0f.cloudfront.net/310519663433714442/7DNuLCzRKqgBWvigKzgXZT/eu_5ed930f2.png",
     icon: Crown,
     color: "oklch(0.85 0.18 60)",
     badge: "FOUNDER",

@@ -197,9 +197,9 @@ export default function RecruitSection() {
                 {/* Rank + KD */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                      Rank Atual *
-                    </label>
+                  <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
+                    Patente Atual *
+                  </label>
                     <div className="relative">
                       <Gamepad2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
                       <select
@@ -209,10 +209,13 @@ export default function RecruitSection() {
                         className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200 appearance-none"
                       >
                         <option value="" className="bg-[oklch(0.08_0.02_240)]">Selecione</option>
+                        <option value="bronze" className="bg-[oklch(0.08_0.02_240)]">Bronze</option>
+                        <option value="prata" className="bg-[oklch(0.08_0.02_240)]">Prata</option>
+                        <option value="ouro" className="bg-[oklch(0.08_0.02_240)]">Ouro</option>
                         <option value="platina" className="bg-[oklch(0.08_0.02_240)]">Platina</option>
                         <option value="diamante" className="bg-[oklch(0.08_0.02_240)]">Diamante</option>
-                        <option value="heroico" className="bg-[oklch(0.08_0.02_240)]">Heroico</option>
-                        <option value="grandmestre" className="bg-[oklch(0.08_0.02_240)]">Grão-Mestre</option>
+                        <option value="mestre" className="bg-[oklch(0.08_0.02_240)]">Mestre</option>
+                        <option value="elite" className="bg-[oklch(0.08_0.02_240)]">Elite</option>
                       </select>
                     </div>
                   </div>
