@@ -14,6 +14,7 @@ const navLinks = [
   { label: "Regras", href: "#rules" },
   { label: "Recrutamento", href: "#recruit" },
   { label: "Contato", href: "#contact" },
+  { label: "Hall da Fama", href: "#hall-of-fame" },
 ];
 
 export default function Navbar() {

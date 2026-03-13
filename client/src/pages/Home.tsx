@@ -11,6 +11,7 @@ import AchievementsSection from "@/components/AchievementsSection";
 import RulesSection from "@/components/RulesSection";
 import RecruitSection from "@/components/RecruitSection";
 import ContactSection from "@/components/ContactSection";
+import HallOfFameSection from "@/components/HallOfFameSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       <RulesSection />
       <RecruitSection />
       <ContactSection />
+      <HallOfFameSection />
       <Footer />
     </div>
   );
