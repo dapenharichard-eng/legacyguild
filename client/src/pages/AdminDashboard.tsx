@@ -1,20 +1,23 @@
 /* =============================================================
    LEGACY GUILD — Admin Dashboard
-   Design: Dashboard para gerenciar candidaturas
+   Design: Dashboard para gerenciar candidaturas com filtros
    ============================================================= */
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Loader2, LogOut, Check, X } from "lucide-react";
+import { Loader2, LogOut, Check, X, Filter } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
+
+type FilterStatus = "all" | "pending" | "accepted" | "rejected";
 
 export default function AdminDashboard() {
   const { user, logout, loading: authLoading } = useAuth();
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>("all");
 
   const { data: applications, isLoading, refetch } = trpc.applications.list.useQuery(
     undefined,
@@ -26,6 +29,24 @@ export default function AdminDashboard() {
       refetch();
     },
   });
+
+  // Filtrar candidaturas por status
+  const filteredApplications = useMemo(() => {
+    if (!applications) return [];
+    if (filterStatus === "all") return applications;
+    return applications.filter((app) => app.status === filterStatus);
+  }, [applications, filterStatus]);
+
+  // Contar candidaturas por status
+  const statusCounts = useMemo(() => {
+    if (!applications) return { all: 0, pending: 0, accepted: 0, rejected: 0 };
+    return {
+      all: applications.length,
+      pending: applications.filter((app) => app.status === "pending").length,
+      accepted: applications.filter((app) => app.status === "accepted").length,
+      rejected: applications.filter((app) => app.status === "rejected").length,
+    };
+  }, [applications]);
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,12 +136,68 @@ export default function AdminDashboard() {
           </Button>
         </div>
 
+        {/* Filter Section */}
+        <div className="mb-6 p-4 bg-[oklch(0.06_0.02_240/0.5)] border border-[oklch(0.72_0.26_220/0.2)] rounded-lg">
+          <div className="flex items-center gap-2 mb-4">
+            <Filter size={18} className="text-[oklch(0.72_0.26_220)]" />
+            <h2 className="font-['Orbitron'] font-bold text-sm text-[oklch(0.72_0.26_220)] uppercase">
+              Filtrar por Status
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <Button
+              onClick={() => setFilterStatus("all")}
+              className={`font-['Exo_2'] text-xs uppercase transition-all ${
+                filterStatus === "all"
+                  ? "bg-[oklch(0.72_0.26_220)] text-[oklch(0.05_0.02_240)]"
+                  : "bg-[oklch(0.06_0.02_240)] border border-[oklch(0.72_0.26_220/0.3)] text-[oklch(0.72_0.26_220)] hover:bg-[oklch(0.72_0.26_220/0.1)]"
+              }`}
+            >
+              Todas ({statusCounts.all})
+            </Button>
+
+            <Button
+              onClick={() => setFilterStatus("pending")}
+              className={`font-['Exo_2'] text-xs uppercase transition-all ${
+                filterStatus === "pending"
+                  ? "bg-yellow-600 text-white"
+                  : "bg-yellow-600/20 border border-yellow-500/30 text-yellow-400 hover:bg-yellow-600/30"
+              }`}
+            >
+              Pendentes ({statusCounts.pending})
+            </Button>
+
+            <Button
+              onClick={() => setFilterStatus("accepted")}
+              className={`font-['Exo_2'] text-xs uppercase transition-all ${
+                filterStatus === "accepted"
+                  ? "bg-green-600 text-white"
+                  : "bg-green-600/20 border border-green-500/30 text-green-400 hover:bg-green-600/30"
+              }`}
+            >
+              Aceitas ({statusCounts.accepted})
+            </Button>
+
+            <Button
+              onClick={() => setFilterStatus("rejected")}
+              className={`font-['Exo_2'] text-xs uppercase transition-all ${
+                filterStatus === "rejected"
+                  ? "bg-red-600 text-white"
+                  : "bg-red-600/20 border border-red-500/30 text-red-400 hover:bg-red-600/30"
+              }`}
+            >
+              Rejeitadas ({statusCounts.rejected})
+            </Button>
+          </div>
+        </div>
+
         {/* Applications Table */}
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="animate-spin text-[oklch(0.72_0.26_220)]" size={40} />
           </div>
-        ) : applications && applications.length > 0 ? (
+        ) : filteredApplications && filteredApplications.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -149,7 +226,7 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {applications.map((app) => (
+                {filteredApplications.map((app) => (
                   <tr
                     key={app.id}
                     className="border-b border-[oklch(0.72_0.26_220/0.1)] hover:bg-[oklch(0.72_0.26_220/0.05)]"
@@ -226,7 +303,15 @@ export default function AdminDashboard() {
         ) : (
           <div className="text-center py-12">
             <p className="font-['Exo_2'] text-[oklch(0.65_0.05_220)]">
-              Nenhuma candidatura recebida ainda
+              {filterStatus === "all"
+                ? "Nenhuma candidatura recebida ainda"
+                : `Nenhuma candidatura ${
+                    filterStatus === "pending"
+                      ? "pendente"
+                      : filterStatus === "accepted"
+                      ? "aceita"
+                      : "rejeitada"
+                  }`}
             </p>
           </div>
         )}
