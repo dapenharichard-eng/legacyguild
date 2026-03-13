@@ -1,16 +1,16 @@
 /* =============================================================
    LEGACY GUILD — MembersSection
-   Design: Neon Abyss | Member cards with rank badges
+   Design: Neon Abyss | Leader showcase with rank badges
    ============================================================= */
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Crown, Star, Shield, Sword } from "lucide-react";
+import { Crown } from "lucide-react";
 
 const members = [
   {
-    name: "PhantomX",
-    role: "Líder",
+    name: "Bravuu7",
+    role: "Líder Fundador",
     rank: "Heroico",
     kd: "4.8",
     wins: "312",
@@ -18,61 +18,6 @@ const members = [
     icon: Crown,
     color: "oklch(0.85 0.18 60)",
     badge: "FOUNDER",
-  },
-  {
-    name: "NightStrike",
-    role: "Co-Líder",
-    rank: "Heroico",
-    kd: "4.2",
-    wins: "287",
-    avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop&crop=face",
-    icon: Star,
-    color: "oklch(0.78 0.28 210)",
-    badge: "CO-LEADER",
-  },
-  {
-    name: "BlazeFire",
-    role: "Capitão",
-    rank: "Diamante",
-    kd: "3.9",
-    wins: "241",
-    avatar: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&h=200&fit=crop&crop=face",
-    icon: Shield,
-    color: "oklch(0.72 0.26 220)",
-    badge: "CAPTAIN",
-  },
-  {
-    name: "VortexKing",
-    role: "Capitão",
-    rank: "Diamante",
-    kd: "3.7",
-    wins: "198",
-    avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&h=200&fit=crop&crop=face",
-    icon: Shield,
-    color: "oklch(0.72 0.26 220)",
-    badge: "CAPTAIN",
-  },
-  {
-    name: "ShadowBolt",
-    role: "Membro Elite",
-    rank: "Platina",
-    kd: "3.4",
-    wins: "176",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-    icon: Sword,
-    color: "oklch(0.75 0.10 200)",
-    badge: "ELITE",
-  },
-  {
-    name: "IronWolf",
-    role: "Membro Elite",
-    rank: "Platina",
-    kd: "3.1",
-    wins: "154",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
-    icon: Sword,
-    color: "oklch(0.75 0.10 200)",
-    badge: "ELITE",
   },
 ];
 
@@ -114,24 +59,24 @@ export default function MembersSection() {
           <div className="flex items-center gap-4 mb-3">
             <div className="h-px flex-1 max-w-12 bg-[oklch(0.72_0.26_220/0.5)]" />
             <span className="font-['Share_Tech_Mono'] text-xs text-[oklch(0.72_0.26_220)] tracking-widest uppercase">
-              Nossa Equipe
+              Liderança
             </span>
           </div>
           <h2 className="font-['Orbitron'] font-black text-4xl md:text-5xl text-white">
-            Membros em{" "}
+            Nossos{" "}
             <span
               className="text-[oklch(0.78_0.28_210)]"
               style={{ textShadow: "0 0 20px oklch(0.72 0.26 220 / 0.5)" }}
             >
-              Destaque
+              Líderes
             </span>
           </h2>
         </AnimatedSection>
 
         {/* Members Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex justify-center">
           {members.map((member, i) => (
-            <AnimatedSection key={i} delay={0.08 * i}>
+            <AnimatedSection key={i} delay={0.08 * i} className="w-full max-w-md">
               <div className="glass-card neon-border rounded-sm overflow-hidden group hover:bg-[oklch(0.72_0.26_220/0.06)] transition-all duration-400 relative">
                 {/* Top accent line */}
                 <div
@@ -215,13 +160,6 @@ export default function MembersSection() {
             </AnimatedSection>
           ))}
         </div>
-
-        {/* View All */}
-        <AnimatedSection className="mt-10 text-center" delay={0.3}>
-          <p className="font-['Exo_2'] text-sm text-[oklch(0.55_0.06_220)] mb-4">
-            E mais <strong className="text-[oklch(0.72_0.26_220)]">44 membros</strong> fazendo parte da família Legacy
-          </p>
-        </AnimatedSection>
       </div>
 
       {/* Bottom decorative line */}
