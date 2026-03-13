@@ -12,8 +12,6 @@ const members = [
     name: "Bravuu7",
     role: "Líder Fundador",
     rank: "Elite",
-    kd: "4.8",
-    wins: "312",
     avatar: "https://d2xsxph8kpxj0f.cloudfront.net/310519663433714442/7DNuLCzRKqgBWvigKzgXZT/eu_5ed930f2.png",
     icon: Crown,
     color: "oklch(0.85 0.18 60)",
@@ -137,22 +135,7 @@ export default function MembersSection() {
                         {member.role} · {member.rank}
                       </p>
 
-                      {/* Stats */}
-                      <div className="flex gap-4">
-                        <div>
-                          <div className="font-['Share_Tech_Mono'] text-sm font-bold" style={{ color: member.color }}>
-                            {member.kd}
-                          </div>
-                          <div className="font-['Exo_2'] text-[10px] text-[oklch(0.50_0.05_220)] uppercase tracking-wider">K/D</div>
-                        </div>
-                        <div className="w-px bg-[oklch(0.72_0.26_220/0.2)]" />
-                        <div>
-                          <div className="font-['Share_Tech_Mono'] text-sm font-bold text-[oklch(0.78_0.28_210)]">
-                            {member.wins}
-                          </div>
-                          <div className="font-['Exo_2'] text-[10px] text-[oklch(0.50_0.05_220)] uppercase tracking-wider">Vitórias</div>
-                        </div>
-                      </div>
+
                     </div>
                   </div>
                 </div>
