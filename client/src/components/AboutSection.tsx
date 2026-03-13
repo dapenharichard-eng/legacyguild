@@ -135,7 +135,7 @@ export default function AboutSection() {
                     className="font-['Orbitron'] font-black text-3xl text-[oklch(0.78_0.28_210)]"
                     style={{ textShadow: "0 0 15px oklch(0.72 0.26 220 / 0.5)" }}
                   >
-                    2021
+                    2026
                   </div>
                   <div className="font-['Exo_2'] text-xs text-[oklch(0.55_0.06_220)] uppercase tracking-wider">Fundação</div>
                 </div>
@@ -145,7 +145,7 @@ export default function AboutSection() {
                     className="font-['Orbitron'] font-black text-3xl text-[oklch(0.78_0.28_210)]"
                     style={{ textShadow: "0 0 15px oklch(0.72 0.26 220 / 0.5)" }}
                   >
-                    TOP 5
+                    TOP 4
                   </div>
                   <div className="font-['Exo_2'] text-xs text-[oklch(0.55_0.06_220)] uppercase tracking-wider">Ranking</div>
                 </div>
