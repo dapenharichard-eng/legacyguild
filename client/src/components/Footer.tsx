@@ -62,7 +62,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="font-['Exo_2'] text-sm text-[oklch(0.55_0.05_220)] leading-relaxed mb-5">
-              Guilda de elite no Free Fire. Dominamos o campo de batalha com estratégia, habilidade e lealdade desde 2021.
+              Guilda de elite no Free Fire. Dominamos o campo de batalha com estratégia, habilidade e lealdade desde 2026.
             </p>
             {/* Social Icons */}
             <div className="flex gap-3">
@@ -141,10 +141,10 @@ export default function Footer() {
           className="pt-6 border-t border-[oklch(0.72_0.26_220/0.15)] flex flex-col sm:flex-row items-center justify-between gap-3"
         >
           <p className="font-['Share_Tech_Mono'] text-xs text-[oklch(0.40_0.04_220)] tracking-wider">
-            © 2024 LEGACY GUILD — FREE FIRE. TODOS OS DIREITOS RESERVADOS.
+            © 2026 LEGACY GUILD — FREE FIRE. TODOS OS DIREITOS RESERVADOS.
           </p>
           <p className="font-['Share_Tech_Mono'] text-xs text-[oklch(0.35_0.04_220)] tracking-wider">
-            BUILT WITH NEON & DARKNESS
+            DESENVOLVIDO POR NVT
           </p>
         </div>
       </div>

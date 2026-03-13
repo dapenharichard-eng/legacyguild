@@ -8,10 +8,10 @@ import { ChevronDown, Zap } from "lucide-react";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663433714442/7DNuLCzRKqgBWvigKzgXZT/legacy-hero-gvs87HFzRBu3Scz8znzQkn.webp";
 
 const stats = [
-  { value: "50+", label: "Membros Ativos" },
-  { value: "#1", label: "Ranking Regional" },
-  { value: "200+", label: "Vitórias" },
-  { value: "3 Anos", label: "De Domínio" },
+  { value: "+20", label: "Membros Ativos" },
+  { value: "EM BREVE", label: "Ranking Regional" },
+  { value: "+200", label: "Vitórias" },
+  { value: "Fundada", label: "Em 2026" },
 ];
 
 export default function HeroSection() {
