@@ -13,6 +13,7 @@ const navLinks = [
   { label: "Conquistas", href: "#achievements" },
   { label: "Regras", href: "#rules" },
   { label: "Recrutamento", href: "#recruit" },
+  { label: "Contato", href: "#contact" },
 ];
 
 export default function Navbar() {

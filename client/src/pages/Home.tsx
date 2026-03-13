@@ -10,6 +10,7 @@ import MembersSection from "@/components/MembersSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import RulesSection from "@/components/RulesSection";
 import RecruitSection from "@/components/RecruitSection";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <AchievementsSection />
       <RulesSection />
       <RecruitSection />
+      <ContactSection />
       <Footer />
     </div>
   );
