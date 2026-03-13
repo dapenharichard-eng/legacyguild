@@ -10,7 +10,7 @@ const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663433714442/7DNuL
 const stats = [
   { value: "+20", label: "Membros Ativos" },
   { value: "EM BREVE", label: "Ranking Regional" },
-  { value: "+200", label: "Vitórias" },
+  { value: "Developer", label: "NvT" },
   { value: "Fundada", label: "Em 2026" },
 ];
 
