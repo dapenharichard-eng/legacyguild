@@ -8,6 +8,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Send, CheckCircle, User, Hash, Gamepad2, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 const requirements = [
   { label: "Nível mínimo", value: "+40" },
@@ -24,25 +25,53 @@ export default function RecruitSection() {
 
   const [form, setForm] = useState({
     name: "",
-    id: "",
+    discord: "",
+    whatsapp: "",
+    level: "",
     rank: "",
-    kd: "",
-    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitApplicationMutation = trpc.applications.submit.useMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.id || !form.rank) {
+    if (!form.name || !form.discord || !form.whatsapp || !form.level || !form.rank) {
       toast.error("Preencha todos os campos obrigatórios.");
       return;
     }
-    setSubmitted(true);
-    toast.success("Candidatura enviada! Entraremos em contato em breve.");
+
+    setIsLoading(true);
+    try {
+      const levelNum = parseInt(form.level, 10);
+      if (isNaN(levelNum) || levelNum < 40) {
+        toast.error("Level deve ser no mínimo 40.");
+        setIsLoading(false);
+        return;
+      }
+
+      await submitApplicationMutation.mutateAsync({
+        name: form.name,
+        discord: form.discord,
+        whatsapp: form.whatsapp,
+        level: levelNum,
+        rank: form.rank,
+      });
+
+      setSubmitted(true);
+      setForm({ name: "", discord: "", whatsapp: "", level: "", rank: "" });
+      toast.success("Candidatura enviada! Entraremos em contato em breve.");
+    } catch (error) {
+      toast.error("Erro ao enviar candidatura. Tente novamente.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -78,21 +107,15 @@ export default function RecruitSection() {
             </span>
             <div className="h-px w-12 bg-[oklch(0.72_0.26_220/0.5)]" />
           </div>
-          <h2 className="font-['Orbitron'] font-black text-4xl md:text-5xl text-white mb-4">
-            Entre para a{" "}
-            <span
-              className="text-[oklch(0.78_0.28_210)]"
-              style={{ textShadow: "0 0 20px oklch(0.72 0.26 220 / 0.5)" }}
-            >
-              Legacy
-            </span>
+          <h2 className="font-['Orbitron'] font-black text-4xl md:text-5xl text-white mb-4 tracking-wider">
+            Recrutamento
           </h2>
-          <p className="font-['Exo_2'] text-base text-[oklch(0.65_0.05_220)] max-w-xl mx-auto">
-            Você tem o que é preciso para fazer parte da elite? Candidate-se agora e mostre seu valor.
+          <p className="font-['Exo_2'] text-[oklch(0.65_0.05_220)] max-w-2xl mx-auto">
+            Junte-se à Legacy e faça parte de uma guilda de elite. Avaliamos seu potencial e comprometimento.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Requirements */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -176,38 +199,56 @@ export default function RecruitSection() {
                   </div>
                 </div>
 
-                {/* ID */}
+                {/* Discord */}
                 <div>
                   <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                    ID do Jogador *
+                    Discord *
                   </label>
                   <div className="relative">
-                    <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
+                    <MessageSquare size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
                     <input
                       type="text"
-                      name="id"
-                      value={form.id}
+                      name="discord"
+                      value={form.discord}
                       onChange={handleChange}
-                      placeholder="Ex: 123456789"
+                      placeholder="Seu Discord (ex: User#1234)"
                       className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200"
                     />
                   </div>
                 </div>
 
-                {/* Level + Age */}
+                {/* WhatsApp */}
+                <div>
+                  <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
+                    WhatsApp *
+                  </label>
+                  <div className="relative">
+                    <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
+                    <input
+                      type="text"
+                      name="whatsapp"
+                      value={form.whatsapp}
+                      onChange={handleChange}
+                      placeholder="Ex: +55 11 99999-9999"
+                      className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200"
+                    />
+                  </div>
+                </div>
+
+                {/* Level + Rank */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                      Seu Level *
+                      Level *
                     </label>
                     <div className="relative">
                       <Gamepad2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[oklch(0.55_0.08_220)]" />
                       <input
                         type="number"
-                        name="rank"
-                        value={form.rank}
+                        name="level"
+                        value={form.level}
                         onChange={handleChange}
-                        placeholder="Ex: 45"
+                        placeholder="40+"
                         min="40"
                         className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200"
                       />
@@ -215,41 +256,34 @@ export default function RecruitSection() {
                   </div>
                   <div>
                     <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                      Sua Idade *
+                      Patente *
                     </label>
-                    <input
-                      type="number"
-                      name="kd"
-                      value={form.kd}
+                    <select
+                      name="rank"
+                      value={form.rank}
                       onChange={handleChange}
-                      placeholder="Ex: 18"
-                      min="13"
-                      className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 px-3 rounded-sm transition-colors duration-200"
-                    />
+                      className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] font-['Exo_2'] text-sm py-2.5 px-3 rounded-sm transition-colors duration-200"
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="Bronze">Bronze</option>
+                      <option value="Prata">Prata</option>
+                      <option value="Ouro">Ouro</option>
+                      <option value="Platina">Platina</option>
+                      <option value="Diamante">Diamante</option>
+                      <option value="Mestre">Mestre</option>
+                      <option value="Elite">Elite</option>
+                    </select>
                   </div>
                 </div>
 
-                {/* Message */}
-                <div>
-                  <label className="font-['Exo_2'] text-xs text-[oklch(0.60_0.06_220)] uppercase tracking-wider mb-1.5 block">
-                    Por que quer entrar na Legacy?
-                  </label>
-                  <div className="relative">
-                    <MessageSquare size={14} className="absolute left-3 top-3 text-[oklch(0.55_0.08_220)]" />
-                    <textarea
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Fale sobre você e sua motivação..."
-                      rows={3}
-                      className="w-full bg-[oklch(0.08_0.02_240)] border border-[oklch(0.72_0.26_220/0.25)] focus:border-[oklch(0.72_0.26_220/0.7)] focus:outline-none text-[oklch(0.85_0.04_220)] placeholder-[oklch(0.40_0.04_220)] font-['Exo_2'] text-sm py-2.5 pl-9 pr-3 rounded-sm transition-colors duration-200 resize-none"
-                    />
-                  </div>
-                </div>
-
-                <button type="submit" className="neon-btn-filled w-full flex items-center justify-center gap-2 mt-2">
-                  <Send size={14} />
-                  Enviar Candidatura
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full neon-btn-filled text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send size={16} />
+                  {isLoading ? "Enviando..." : "Enviar Candidatura"}
                 </button>
               </form>
             )}
