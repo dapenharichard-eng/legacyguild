@@ -15,6 +15,7 @@ import HallOfFameSection from "@/components/HallOfFameSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+
   return (
     <div className="min-h-screen bg-[oklch(0.05_0.02_240)]">
       <Navbar />
