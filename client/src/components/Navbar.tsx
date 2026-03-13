@@ -4,7 +4,7 @@
    ============================================================= */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, Lock } from "lucide-react";
 
 const navLinks = [
   { label: "Início", href: "#hero" },
@@ -84,6 +84,15 @@ export default function Navbar() {
             ))}
           </ul>
 
+          {/* Admin Panel Button */}
+          <a
+            href="/admin/dashboard"
+            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-sm bg-[oklch(0.72_0.26_220/0.15)] border border-[oklch(0.72_0.26_220/0.5)] text-[oklch(0.72_0.26_220)] hover:bg-[oklch(0.72_0.26_220/0.25)] transition-all duration-200 font-['Exo_2'] text-xs font-bold uppercase tracking-wider mr-3"
+          >
+            <Lock size={14} />
+            Painel Admin
+          </a>
+
           {/* CTA Button */}
           <a
             href="#recruit"
@@ -125,6 +134,15 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/admin/dashboard"
+                  className="flex items-center gap-2 py-3 px-4 font-['Exo_2'] text-sm font-bold tracking-wider text-[oklch(0.72_0.26_220)] hover:text-[oklch(0.92_0.10_210)] hover:bg-[oklch(0.72_0.26_220/0.08)] transition-all duration-200 uppercase border-l-2 border-transparent hover:border-[oklch(0.72_0.26_220)]"
+                >
+                  <Lock size={16} />
+                  Painel Admin
+                </a>
+              </li>
               <li className="pt-2">
                 <a
                   href="#recruit"
